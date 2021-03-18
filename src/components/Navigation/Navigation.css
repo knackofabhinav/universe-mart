@@ -1,0 +1,8 @@
+.navigation{
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.navigation > ul > li {
+    cursor: pointer;
+}
