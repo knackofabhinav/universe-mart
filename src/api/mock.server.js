@@ -1,32 +1,24 @@
-import { createServer, Model, RestSerializer } from "miragejs";
+import { createServer} from "miragejs";
 import faker from "faker";
 
-export default function setupMockServer() {
+export function setupMockServer() {
   createServer({
-    serializers: {
-      application: RestSerializer
-    },
+    routes(){
+        this.namespace = 'api';
 
-    models: {
-      address: Model,
-    },
-
-    routes() {
-      this.namespace = "api";
-      this.timing = 3000;
-      this.resource("productlist");
-    },
-
-    seeds(server) {
-      [...Array(5)].forEach((_) => {
-        server.create("product", {
-          id: faker.random.uuid(),
-          product: faker.commerce.product(),
-          description: faker.commerce.productDescription(),
-          price: faker.commerce.price(),
-          stockQty: 10
-        });
-      });
+        this.get("/productlist", () => {
+            let productlist = [...Array(20)].map(() => {
+                return({
+                    id: faker.random.uuid(),
+                    name: faker.commerce.product(),
+                    price: faker.commerce.price(),
+                    description: faker.commerce.productDescription()
+                })
+            })
+            return {
+                productlist
+            }
+        })
     }
   });
 }

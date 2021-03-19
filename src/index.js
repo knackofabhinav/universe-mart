@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ThemeProvider} from '../src/contexts/theme-context'
+import {ThemeProvider} from '../src/contexts/theme-context';
+import {setupMockServer} from "./api/mock.server"
+
+setupMockServer(); 
 
 ReactDOM.render(
   <React.StrictMode>

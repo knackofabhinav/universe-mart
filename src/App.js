@@ -11,27 +11,33 @@ const axios = require('axios');
 function App() {
   const {theme:{backgroundColor, color}} = useTheme();
   const [route, setRoute] = useState('products');
+  const [productlist, setProductlist] = useState([])
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
     (async function(){
       try{
+        setLoader(true)
         const {data} = await axios.get("/api/productlist")
         console.log(data.productlist)
+        setProductlist(data.productlist)
+        console.log(productlist)
       }
       catch (error){
         console.error(error)
       }
       finally{
-        console.log("done")
+        setLoader(false)
       }
     })();
   }, [])
-
   
+
   return (
     <div className="App" style={{backgroundColor: backgroundColor, color: color}}>
       <Navigation setRoute={setRoute}/>
-      {route==='product' && <ProductListing />}
+      {loader && <h1>loading...</h1>}
+      {route==='product' && <ProductListing productlist={productlist} />}
       {route==='wishlist' && <Wishlist />}
       {route==='cart' && <Cart />}
     </div>
