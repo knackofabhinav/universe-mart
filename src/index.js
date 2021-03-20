@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ThemeProvider} from '../src/contexts/theme-context';
 import {setupMockServer} from "./api/mock.server"
+import { CartProvider } from './contexts/cart-context';
 
 setupMockServer(); 
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

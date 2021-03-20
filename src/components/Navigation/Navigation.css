@@ -6,3 +6,21 @@
 .navigation > ul > li {
     cursor: pointer;
 }
+
+.cart-icon{
+    position: relative;
+}
+
+.cart-icon > span{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: red;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    top: -1em;
+    right: -1em;
+    color: white;
+}

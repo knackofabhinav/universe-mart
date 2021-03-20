@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import {useTheme} from '../src/contexts/theme-context' 
+import {useCart} from "./contexts/cart-context"
 import {Navigation} from './components/Navigation/Navigation'
 import {ProductListing} from './components/Product Listing/ProductListing'
 import {Wishlist} from './components/Wishlist/Wishlist'
@@ -10,9 +11,10 @@ const axios = require('axios');
 
 function App() {
   const {theme:{backgroundColor, color}} = useTheme();
-  const [route, setRoute] = useState('products');
+  const [route, setRoute] = useState('product');
   const [productlist, setProductlist] = useState([])
   const [loader, setLoader] = useState(false)
+  const {cartItems} = useCart() 
 
   useEffect(() => {
     (async function(){
