@@ -71,10 +71,12 @@ export const Wishlist = ({wishlist}) => {
                                 </a>
                                 <button
                                     className="btn secondary"
-                                    onClick={(product) => setCartItems([
-                                    ...cartItems,
-                                    product
-                                ])}>Add to Cart</button>
+                                    onClick={() => {
+                                    setCartItems([
+                                        ...cartItems,
+                                        product
+                                    ]);
+                                }}>Add to Cart</button>
                             </div>
                         </div>
                     )
