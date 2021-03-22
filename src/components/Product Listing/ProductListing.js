@@ -18,7 +18,6 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
           setCartItems([...cartItems]);
           break;
         } else {
-          cartItems[index].quantity = 1;
           setCartItems([...cartItems, newProduct]);
         }
       }
@@ -26,9 +25,20 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
     console.log(cartItems);
   };
 
-  const addToWishlist = (product) => {
-    setWishlist([...wishlist, product]);
-    console.log(wishlist);
+  const addToWishlist = (newProduct) => {
+    // setWishlist([...wishlist, product]);
+    if (wishlist.length === 0) {
+      setWishlist([...wishlist, newProduct]);
+    } else {
+      for (let index in wishlist) {
+        if (wishlist[index].id === newProduct.id) {
+          setWishlist([...wishlist]);
+          break;
+        } else {
+          setWishlist([...wishlist, newProduct]);
+        }
+      }
+    }
   };
 
   const highToLowHandler = () => {
@@ -66,8 +76,11 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
   }
   return (
     <div>
-      <button onClick={() => highToLowHandler()}>High to Low</button>
-      <button onClick={() => lowToHighHandler()}>Low To High</button>
+    <div style={{display:'flex', justifyContent:'center'}}>
+      <p style={{paddingTop: '1.3em'}}>Prices:</p>
+      <button onClick={() => highToLowHandler()} className='btn  text primary'>High to Low</button>
+      <button onClick={() => lowToHighHandler()} className='btn text primary'>Low To High</button>
+    </div>
       <ul className="productlist-container">
         {productlist.map((product) => {
           return (

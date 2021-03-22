@@ -18,7 +18,15 @@ export const Cart = () => {
     }
   }
 
-  function incrementHandler({ item }) {}
+  function incrementHandler( item ) {
+    const qtyIncCart = [...cartItems].map((prod) => prod.id===item.id ? {...prod, quantity: prod.quantity + 1}: {...prod})
+    setCartItems(qtyIncCart)
+  }
+
+  function decrementHandler( item ) {
+    const qtyIncCart = [...cartItems].map((prod) => prod.id===item.id ? {...prod, quantity: prod.quantity - 1}: {...prod})
+    setCartItems(qtyIncCart)
+  }
 
   return (
     <div
@@ -103,7 +111,8 @@ export const Cart = () => {
                     +
                   </button>
                   <span>{item.quantity}</span>
-                  <button className="btn primary">-</button>{" "}
+                  <button className="btn primary"
+                  onClick={() => decrementHandler(item)}>-</button>{" "}
                 </h3>
               </div>
               <div

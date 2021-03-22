@@ -65,7 +65,7 @@ function App() {
           setWishlist={setWishlist}
         />
       )}
-      {route === "wishlist" && <Wishlist wishlist={wishlist} />}
+      {route === "wishlist" && <Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}
       {route === "cart" && <Cart />}
     </div>
   );

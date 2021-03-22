@@ -23,22 +23,6 @@ export const Navigation = ({setRoute}) => {
                     : LogoLight}
                     alt="logo"/>
             </a>
-            <div
-                className="input-container"
-                style={{
-                width: "30vw"
-            }}>
-                <span>
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </span>
-                <input
-                    style={{
-                    backgroundColor: backgroundColor,
-                    color: color
-                }}
-                    placeholder="What are you looking for?"
-                    aria-label="search"/>
-            </div>
             <ul>
                 <li onClick={() => setRoute('product')}>Products</li>
                 <li onClick={() => setRoute('wishlist')}>

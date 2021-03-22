@@ -1,7 +1,7 @@
 import {useCart} from "../../contexts/cart-context"
 import {useTheme} from "../../contexts/theme-context"
 
-export const Wishlist = ({wishlist}) => {
+export const Wishlist = ({wishlist, setWishlist}) => {
     const {cartItems, setCartItems} = useCart()
     const {
         theme: {
@@ -9,6 +9,29 @@ export const Wishlist = ({wishlist}) => {
             color
         }
     } = useTheme()
+    const removeFromWishlist = (product) => {
+        const itemRemovedWishlist = [...wishlist].filter(item => item.id!==product.id)
+        console.log(itemRemovedWishlist)
+        setWishlist(itemRemovedWishlist)
+    }
+
+    const addToCart = (newProduct) => {
+        if (cartItems.length === 0) {
+          setCartItems([...cartItems, newProduct]);
+        } else {
+          for (let index in cartItems) {
+            if (cartItems[index].id === newProduct.id) {
+              cartItems[index].quantity += 1;
+              setCartItems([...cartItems]);
+              break;
+            } else {
+              setCartItems([...cartItems, newProduct]);
+            }
+          }
+        }
+        console.log(cartItems);
+      };
+
     return (
         <div
             style={{
@@ -33,7 +56,7 @@ export const Wishlist = ({wishlist}) => {
                             key={product.id}
                             style={{
                             backgroundColor: backgroundColor,
-                            maxHeight: '60vh',
+                            maxHeight: '65vh',
                             cursor: 'pointer'
                         }}>
                             <div className="thumbnail">
@@ -41,6 +64,7 @@ export const Wishlist = ({wishlist}) => {
                                 <p className="badge-text">New</p>
                                 <img src={product.image} alt='product'/>
                                 <button
+                                    onClick={() => removeFromWishlist(product)}
                                     key={product.id}
                                     className="wishlist"
                                     style={{
@@ -71,12 +95,7 @@ export const Wishlist = ({wishlist}) => {
                                 </a>
                                 <button
                                     className="btn secondary"
-                                    onClick={() => {
-                                    setCartItems([
-                                        ...cartItems,
-                                        product
-                                    ]);
-                                }}>Add to Cart</button>
+                                    onClick={() => addToCart(product)}>Add to Cart</button>
                             </div>
                         </div>
                     )
