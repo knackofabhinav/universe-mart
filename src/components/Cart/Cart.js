@@ -27,7 +27,7 @@ export const Cart = () => {
         gridTemplateColumns: "3fr 1fr",
         gridTemplateRows: "1fr",
         flexDirection: "row",
-        minHeight: "90vh",
+        minHeight: "100vh",
       }}
     >
       {cartItems.length === 0 && (

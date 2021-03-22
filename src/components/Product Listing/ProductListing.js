@@ -3,7 +3,7 @@ import { useTheme } from "../../contexts/theme-context";
 import { useState } from "react";
 import "./ProductListing.css";
 
-export const ProductListing = ({ productlist, wishlist, setWishlist }) => {
+export const ProductListing = ({ productlist, setProductlist, wishlist, setWishlist }) => {
   const {
     theme: { backgroundColor },
   } = useTheme();
@@ -31,8 +31,43 @@ export const ProductListing = ({ productlist, wishlist, setWishlist }) => {
     console.log(wishlist);
   };
 
+  const highToLowHandler = () => {
+    const compare = (a,b) => {
+      const priceA = a.price
+      const priceB = b.price
+    
+      let comparison = 0;
+      if (priceA > priceB) {
+        comparison = 1;
+      } else if (priceA < priceB) {
+        comparison = -1;
+      }
+      return comparison * -1; //for descending comparison * -1
+    }
+    const sortedProductList = productlist.sort(compare)
+    return setProductlist(sortedProductList)
+  }
+
+  const lowToHighHandler = () => {
+    const compare = (a,b) => {
+      const priceA = a.price
+      const priceB = b.price
+    
+      let comparison = 0;
+      if (priceA > priceB) {
+        comparison = 1;
+      } else if (priceA < priceB) {
+        comparison = -1;
+      }
+      return comparison; //for descending comparison * -1
+    }
+    const sortedProductList = productlist.sort(compare)
+    return setProductlist(sortedProductList)
+  }
   return (
     <div>
+      <button onClick={highToLowHandler}>High to Low</button>
+      <button onClick={lowToHighHandler}>Low To High</button>
       <ul className="productlist-container">
         {productlist.map((product) => {
           return (

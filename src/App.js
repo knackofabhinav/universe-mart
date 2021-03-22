@@ -60,6 +60,7 @@ function App() {
       {route === "product" && (
         <ProductListing
           productlist={productlist}
+          setProductlist={setProductlist}
           wishlist={wishlist}
           setWishlist={setWishlist}
         />
