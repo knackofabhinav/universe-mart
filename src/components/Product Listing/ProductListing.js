@@ -44,7 +44,7 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
       }
       return comparison * -1; //for descending comparison * -1
     }
-    const sortedProductList = productlist.sort(compare)
+    const sortedProductList = [...productlist].sort(compare)
     return setProductlist(sortedProductList)
   }
 
@@ -61,13 +61,13 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
       }
       return comparison; //for descending comparison * -1
     }
-    const sortedProductList = productlist.sort(compare)
-    return setProductlist(sortedProductList)
+    const sortedProductList = [...productlist].sort(compare)
+     return setProductlist(sortedProductList)
   }
   return (
     <div>
-      <button onClick={highToLowHandler}>High to Low</button>
-      <button onClick={lowToHighHandler}>Low To High</button>
+      <button onClick={() => highToLowHandler()}>High to Low</button>
+      <button onClick={() => lowToHighHandler()}>Low To High</button>
       <ul className="productlist-container">
         {productlist.map((product) => {
           return (
