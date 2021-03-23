@@ -1,34 +1,33 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { useTheme } from "../src/contexts/theme-context";
-import { useCart } from "./contexts/cart-context";
 import { Navigation } from "./components/Navigation/Navigation";
 import { ProductListing } from "./components/Product Listing/ProductListing";
 import { Wishlist } from "./components/Wishlist/Wishlist";
 import { Cart } from "./components/Cart/Cart";
 import { ProductPage } from "./components/Product Page/ProductPage";
+import { useReducerContext } from "./contexts/reducer-context";
 const axios = require("axios");
 
 function App() {
   const {
     theme: { backgroundColor, color },
   } = useTheme();
-  const [wishlist, setWishlist] = useState([]);
+  const {state:{productlist}, dispatch} = useReducerContext()
   const [route, setRoute] = useState("product");
-  const [productlist, setProductlist] = useState([]);
   const [loader, setLoader] = useState(false);
-  const { cartItems } = useCart();
-
   useEffect(() => {
     (async function () {
       try {
         setLoader(true);
         const { data } = await axios.get("/api/productlist");
-        console.log(data.productlist);
-        setProductlist(data.productlist);
+        const initialList = data.productlist;
+        dispatch({type: 'INITAL_PRODUCTLIST', payload:{initialList}})
         console.log(productlist);
+        setLoader(false)
       } catch (error) {
         console.error(error);
+        setLoader(false)
       } finally {
         setLoader(false);
       }
@@ -39,6 +38,7 @@ function App() {
     <div
       className="App"
       style={{
+        maxWidth: '100%',
         backgroundColor: backgroundColor,
         color: color,
       }}
@@ -57,15 +57,8 @@ function App() {
         </div>
       )}
       {route === "productpage" && <ProductPage />}
-      {route === "product" && (
-        <ProductListing
-          productlist={productlist}
-          setProductlist={setProductlist}
-          wishlist={wishlist}
-          setWishlist={setWishlist}
-        />
-      )}
-      {route === "wishlist" && <Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}
+      {route === "product" && <ProductListing/>}
+      {route === "wishlist" && <Wishlist />}
       {route === "cart" && <Cart />}
     </div>
   );

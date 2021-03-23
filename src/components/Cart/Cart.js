@@ -24,18 +24,20 @@ export const Cart = () => {
   }
 
   function decrementHandler( item ) {
-    const qtyIncCart = [...cartItems].map((prod) => prod.id===item.id ? {...prod, quantity: prod.quantity - 1}: {...prod})
-    setCartItems(qtyIncCart)
+    const qtyDecCart = [...cartItems].map((prod) => prod.id===item.id ? {...prod, quantity: prod.quantity - 1}: {...prod})
+    setCartItems(qtyDecCart)
   }
 
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "3fr 1fr",
-        gridTemplateRows: "1fr",
+        display: "flex",
+        flexWrap: 'wrap',
+        // gridTemplateColumns: "3fr 1fr",
+        // gridTemplateRows: "1fr",
         flexDirection: "row",
         minHeight: "100vh",
+        justifyContent: "space-around",
       }}
     >
       {cartItems.length === 0 && (
@@ -43,7 +45,7 @@ export const Cart = () => {
           style={{
             position: "absolute",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-around",
             alignItems: "center",
             height: "100vh",
             width: "100vw",
@@ -72,6 +74,7 @@ export const Cart = () => {
                 justifyContent: "space-between",
                 // alignItems: "center",
                 minHeight: "20vh",
+                maxWidth: '85vw'
               }}
               key={item.id}
             >
@@ -88,12 +91,14 @@ export const Cart = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
-                  height: "5em",
+                  justifyContent: "space-around",
+                  // height: "5em",
                   fontSize: "80%",
-                  width: "25em",
+                  flexGrow: 1
+                  // width: "25em",
                 }}
               >
+                <div style={{alignItems: 'flex-start'}}>
                 <h2>{item.name}</h2>
                 <h3
                   style={{
@@ -102,8 +107,10 @@ export const Cart = () => {
                 >
                   Price: ₹{item.price}/-
                 </h3>
+                </div>
+                
                 <h3>
-                  Quantity:
+                  Quantity: <br />
                   <button
                     className="btn primary"
                     onClick={() => incrementHandler(item)}
@@ -119,19 +126,21 @@ export const Cart = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  alignItems: "flex-end",
+                  justifyContent: "space-around",
                 }}
               >
-                <a href={item.url}>
-                  <button className="btn primary text">Buy Now</button>
-                </a>
-                <button
+              <button
+                  style={{fontSize: 'large'}}
                   className="btn secondary text"
                   onClick={() => removeItem(item)}
                 >
-                  Remove
+                <i class="fa fa-trash"></i>
                 </button>
+                <a href={item.url}>
+                  <button className="btn primary outline" style={{margin: '1em'}}>Buy Now</button>
+                </a>
+                
               </div>
             </div>
           );

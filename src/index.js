@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {ThemeProvider} from '../src/contexts/theme-context';
 import {setupMockServer} from "./api/mock.server"
 import {CartProvider} from './contexts/cart-context';
+import {ReducerProvider} from './contexts/reducer-context'
 
 setupMockServer();
 
@@ -13,7 +14,9 @@ ReactDOM.render(
     <React.StrictMode>
     <ThemeProvider>
         <CartProvider>
-            <App/>
+        <ReducerProvider>
+            <App />
+        </ReducerProvider>
         </CartProvider>
     </ThemeProvider>
 </React.StrictMode>, document.getElementById('root'));

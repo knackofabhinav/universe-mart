@@ -1,18 +1,19 @@
 import {useCart} from "../../contexts/cart-context"
+import { useReducerContext } from "../../contexts/reducer-context"
 import {useTheme} from "../../contexts/theme-context"
 
-export const Wishlist = ({wishlist, setWishlist}) => {
+export const Wishlist = () => {
+    const {state:{wishlist}, dispatch} = useReducerContext();
     const {cartItems, setCartItems} = useCart()
     const {
         theme: {
             backgroundColor,
-            color
         }
     } = useTheme()
     const removeFromWishlist = (product) => {
         const itemRemovedWishlist = [...wishlist].filter(item => item.id!==product.id)
         console.log(itemRemovedWishlist)
-        setWishlist(itemRemovedWishlist)
+        dispatch({type:'REMOVE_FROM_WISHLIST', payload:{itemRemovedWishlist}})
     }
 
     const addToCart = (newProduct) => {
@@ -75,7 +76,7 @@ export const Wishlist = ({wishlist, setWishlist}) => {
                                         style={{
                                         color: 'red'
                                     }}
-                                        class="fas fa-heart"></i>
+                                        className="fas fa-heart"></i>
                                 </button>
                             </div>
                             <div className='cta-container'>
@@ -89,12 +90,12 @@ export const Wishlist = ({wishlist, setWishlist}) => {
                                 style={{
                                 textAlign: 'center'
                             }}>Price: ₹{product.price}/-</p>
-                            <div>
+                            <div style={{display: "flex", justifyContent: "space-around", margin: '1em' }}>
                                 <a href={product.url}>
                                     <button className="btn primary">Buy Now</button>
                                 </a>
                                 <button
-                                    className="btn secondary"
+                                    className="btn secondary outline"
                                     onClick={() => addToCart(product)}>Add to Cart</button>
                             </div>
                         </div>

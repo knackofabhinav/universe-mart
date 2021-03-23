@@ -1,12 +1,11 @@
 import { useCart } from "../../contexts/cart-context";
 import { useTheme } from "../../contexts/theme-context";
-import { useState } from "react";
 import "./ProductListing.css";
+import { useReducerContext } from "../../contexts/reducer-context";
 
-export const ProductListing = ({ productlist, setProductlist, wishlist, setWishlist }) => {
-  const {
-    theme: { backgroundColor },
-  } = useTheme();
+export const ProductListing = ({ setProductlist }) => {
+  const {state:{wishlist, productlist}, dispatch} = useReducerContext()
+  const {theme: { backgroundColor }} = useTheme();
   const { cartItems, setCartItems } = useCart();
   const addToCart = (newProduct) => {
     if (cartItems.length === 0) {
@@ -26,19 +25,22 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
   };
 
   const addToWishlist = (newProduct) => {
-    // setWishlist([...wishlist, product]);
-    if (wishlist.length === 0) {
-      setWishlist([...wishlist, newProduct]);
-    } else {
-      for (let index in wishlist) {
-        if (wishlist[index].id === newProduct.id) {
-          setWishlist([...wishlist]);
-          break;
-        } else {
-          setWishlist([...wishlist, newProduct]);
-        }
-      }
-    }
+    dispatch({type: 'ADD_TO_WISHLIST', payload:{newProduct}})
+    // if (wishlist.length === 0) {
+    //   return dispatch({type: 'ADD_TO_WISHLIST', payload:{newProduct}})
+    // } // else {
+      // for (let index in wishlist) {
+      //   if (wishlist[index].id === newProduct.id) {
+      //     dispatch({type: 'IF_WISHLIST_INDEX_IS_SAME'})
+      //   } else {
+      //     dispatch({type: 'IF_WISHLIST_INDEX_IS_DIFFERENT', payload:{newProduct}})
+      //   }
+      // }
+      console.log(wishlist)
+      const uniqueList = Array.from(new Set([...wishlist]))
+      console.log(uniqueList)
+      // dispatch({type: 'REMOVE_DUPLICATE_WISHLIST', payload:{uniqueList}})
+    // }
   };
 
   const highToLowHandler = () => {
@@ -55,7 +57,7 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
       return comparison * -1; //for descending comparison * -1
     }
     const sortedProductList = [...productlist].sort(compare)
-    return setProductlist(sortedProductList)
+    return dispatch({type: 'PRICE_HIGH_TO_LOW', payload:{sortedProductList}})
   }
 
   const lowToHighHandler = () => {
@@ -72,14 +74,14 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
       return comparison; //for descending comparison * -1
     }
     const sortedProductList = [...productlist].sort(compare)
-     return setProductlist(sortedProductList)
+    return dispatch({type: 'PRICE_LOW_TO_HIGH', payload:{sortedProductList}})
   }
   return (
     <div>
-    <div style={{display:'flex', justifyContent:'center'}}>
-      <p style={{paddingTop: '1.3em'}}>Prices:</p>
-      <button onClick={() => highToLowHandler()} className='btn  text primary'>High to Low</button>
-      <button onClick={() => lowToHighHandler()} className='btn text primary'>Low To High</button>
+    <div style={{display:'flex', justifyContent:'center', alignItems: 'center', margin: '1em'}}>
+      <p>Prices: </p>
+      <button onClick={() => highToLowHandler()} className='btn text outline primary'>High to Low</button>
+      <button onClick={() => lowToHighHandler()} className='btn text outline primary'>Low To High</button>
     </div>
       <ul className="productlist-container">
         {productlist.map((product) => {
@@ -107,7 +109,7 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
                     addToWishlist(product);
                   }}
                 >
-                  <i class="far fa-heart"></i>
+                  <i className="far fa-heart"></i>
                 </button>
               </div>
               <div className="cta-container">
@@ -127,12 +129,12 @@ export const ProductListing = ({ productlist, setProductlist, wishlist, setWishl
               >
                 Price: ₹{product.price}/-
               </p>
-              <div>
+              <div style={{display: 'flex', justifyContent: 'space-around', alignItems: "center", margin: '1.5em'}}>
                 <a href={product.url}>
-                  <button className="btn primary">Buy Now</button>
+                  <button className="btn primary" style={{width: '6em'}}>Buy Now</button>
                 </a>
                 <button
-                  className="btn secondary"
+                  className="btn secondary outline"
                   onClick={() => addToCart(product)}
                 >
                   Add to Cart

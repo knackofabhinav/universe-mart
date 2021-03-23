@@ -5,36 +5,25 @@ import {useTheme} from '../../contexts/theme-context'
 import {useCart} from '../../contexts/cart-context'
 
 export const Navigation = ({setRoute}) => {
-    const {
-        dark,
-        toggle,
-        theme: {
-            backgroundColor,
-            color
-        }
-    } = useTheme()
+    const {dark,toggle} = useTheme()
     const {cartItems} = useCart()
     return (
         <div className="navigation">
             <a href="/">
-                <img
-                    src={dark
-                    ? LogoDark
-                    : LogoLight}
-                    alt="logo"/>
+                <img src={dark ? LogoDark : LogoLight} alt="logo"/>
             </a>
-            <ul>
-                <li onClick={() => setRoute('product')}>Products</li>
-                <li onClick={() => setRoute('wishlist')}>
+            <ul style={{}}>
+                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('product')}>Products</li>
+                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('wishlist')}>
                     <i className="fas fa-heart"></i>
                 </li>
-                <li onClick={() => setRoute('cart')}>
+                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('cart')}>
                     <div className="cart-icon">
                         <i className="fas fa-shopping-cart"></i>
                         <span>{cartItems.length}</span>
                     </div>
                 </li>
-                <li onClick={toggle}>{dark
+                <li  style={{padding: '1em', margin: '1em'}} onClick={toggle}>{dark
                         ? <i className="fas fa-sun"></i>
                         : <i className="fas fa-moon"></i>}</li>
             </ul>

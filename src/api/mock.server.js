@@ -1,5 +1,4 @@
 import { createServer } from "miragejs";
-import faker from "faker";
 
 export function setupMockServer() {
   createServer({
