@@ -74,7 +74,7 @@ export const Cart = () => {
                 justifyContent: "space-between",
                 // alignItems: "center",
                 minHeight: "20vh",
-                minWidth: '50vw'
+                width: '80vw'
               }}
               key={item.id}
             >

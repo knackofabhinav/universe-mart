@@ -13,17 +13,17 @@ export const Navigation = ({setRoute}) => {
                 <img src={dark ? LogoDark : LogoLight} alt="logo"/>
             </a>
             <ul style={{}}>
-                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('product')}>Products</li>
-                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('wishlist')}>
+                <li style={{padding: '0.5em', margin: '0.5em'}} onClick={() => setRoute('product')}>Products</li>
+                <li style={{padding: '0.5em', margin: '0.5em'}} onClick={() => setRoute('wishlist')}>
                     <i className="fas fa-heart"></i>
                 </li>
-                <li style={{padding: '1em', margin: '1em'}} onClick={() => setRoute('cart')}>
+                <li style={{padding: '0.5em', margin: '0.5em'}} onClick={() => setRoute('cart')}>
                     <div className="cart-icon">
                         <i className="fas fa-shopping-cart"></i>
                         <span>{cartItems.length}</span>
                     </div>
                 </li>
-                <li  style={{padding: '1em', margin: '1em'}} onClick={toggle}>{dark
+                <li  style={{padding: '0.5em', margin: '0.5em'}} onClick={toggle}>{dark
                         ? <i className="fas fa-sun"></i>
                         : <i className="fas fa-moon"></i>}</li>
             </ul>
