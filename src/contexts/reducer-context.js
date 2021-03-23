@@ -5,7 +5,7 @@ const ReducerContext = createContext();
 const reducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TO_WISHLIST':{
-            return {...state, wishlist: [...state.wishlist, action.payload.newProduct]}
+            return {...state, wishlist: Array.from(new Set([...state.wishlist, action.payload.newProduct]))}
         }
         case 'REMOVE_DUPLICATE_WISHLIST':{
             return {...state, wishlist: action.payload.uniqueList}

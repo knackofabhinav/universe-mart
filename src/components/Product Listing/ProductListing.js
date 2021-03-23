@@ -26,21 +26,6 @@ export const ProductListing = ({ setProductlist }) => {
 
   const addToWishlist = (newProduct) => {
     dispatch({type: 'ADD_TO_WISHLIST', payload:{newProduct}})
-    // if (wishlist.length === 0) {
-    //   return dispatch({type: 'ADD_TO_WISHLIST', payload:{newProduct}})
-    // } // else {
-      // for (let index in wishlist) {
-      //   if (wishlist[index].id === newProduct.id) {
-      //     dispatch({type: 'IF_WISHLIST_INDEX_IS_SAME'})
-      //   } else {
-      //     dispatch({type: 'IF_WISHLIST_INDEX_IS_DIFFERENT', payload:{newProduct}})
-      //   }
-      // }
-      console.log(wishlist)
-      const uniqueList = Array.from(new Set([...wishlist]))
-      console.log(uniqueList)
-      // dispatch({type: 'REMOVE_DUPLICATE_WISHLIST', payload:{uniqueList}})
-    // }
   };
 
   const highToLowHandler = () => {
